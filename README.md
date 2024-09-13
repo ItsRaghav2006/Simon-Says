@@ -1,1 +1,2 @@
 # Simon-Says
+This is Simon Says, an interesting memory game using concepts of Javascript. Remember one of the four blinked button's color pattern and after completion of each pattern, level gets increased. You can enjoy this game with your friends and family. 
