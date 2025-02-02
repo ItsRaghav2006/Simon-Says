@@ -1,3 +1,25 @@
+const clickSound = new Audio('sounds/click.mp3');
+const gameOverSound = new Audio('sounds/gameover.mp3');
+const backgroundMusic = new Audio('sounds/background.mp3');
+
+// Background Music Settings
+backgroundMusic.loop = true;     // Loop the background music
+backgroundMusic.volume = 0.5;    // Set volume (0.0 to 1.0)
+
+function playClickSound() {
+    clickSound.currentTime = 0; 
+    clickSound.play();
+}
+
+// Play Game Over Sound
+function playGameOverSound() {
+    gameOverSound.currentTime = 0;
+    gameOverSound.play();
+
+    // Pause Background Music Temporarily
+    backgroundMusic.pause();
+}
+
 let gameSeq = [];
 let userSeq = [];
 
@@ -10,6 +32,7 @@ let h2 = document.querySelector("h2");
 
 document.addEventListener("keydown", function() {
     if(started == false) {
+        backgroundMusic.play(); //Play background music    
         console.log("Game is started");
         started = true;
 
@@ -39,8 +62,8 @@ function levelUp() {
     let randIdx = Math.floor(Math.random()*3);
     let randColor = btns[randIdx];
     let randBtn = document.querySelector(`.${randColor}`);
-    // console.log(randIdx);
-    // console.log(randColor);
+    console.log(randIdx);
+    console.log(randColor);
     gameSeq.push(randColor);
     console.log(gameSeq);
     gameFlash(randBtn);
@@ -53,6 +76,7 @@ function ansCheck(idx) {
             setTimeout(levelUp, 1000);
         }
     } else {
+        playGameOverSound();
         h2.innerHTML = `Game Over! Your score was <b>${level-1}</b> <br>Press any key to start`;
         document.querySelector("body").style.backgroundColor = "red";
         setTimeout(function() {
@@ -61,10 +85,12 @@ function ansCheck(idx) {
         reset();
     }
 }
+
 function btnPress() {
     // console.log(this);
     let btn = this;
     userFlash(btn);
+    playClickSound();
 
     userColor = btn.getAttribute("id");
     userSeq.push(userColor);
