@@ -106,7 +106,7 @@ function ansCheck(idx) {
         playGameOverSound();
         currentScore = 0;
         document.getElementById('current-score').textContent = currentScore;
-        h2.innerHTML = `Game Over!<br>Press any key to start`;
+        h2.innerHTML = `<b>Game Over!</b><br>Press any key or tap the button to restart`;
         document.querySelector("body").style.backgroundColor = "red";
         setTimeout(function() {
             document.querySelector("body").style.backgroundColor = "#f4f4f4";
