@@ -27,6 +27,24 @@ let btns = ["yellow", "red", "purple", "green"];
 
 let started = false;
 let level = 0;
+let currentScore = 0;
+let highScore = localStorage.getItem('highScore') || 0; // Persistent high score
+
+// Update High Score Display on Page Load
+document.getElementById('high-score').textContent = highScore;
+
+// Function to Update Score
+function updateScore() {
+    currentScore++;
+    document.getElementById('current-score').textContent = currentScore;
+
+    // Update High Score if Beaten
+    if (currentScore > highScore) {
+        highScore = currentScore;
+        document.getElementById('high-score').textContent = highScore;
+        localStorage.setItem('highScore', highScore); // Save to local storage
+    }
+}
 
 let h2 = document.querySelector("h2");
 
@@ -74,13 +92,16 @@ function ansCheck(idx) {
     if(userSeq[idx] === gameSeq[idx]) {
         if(userSeq.length === gameSeq.length) {
             setTimeout(levelUp, 1000);
+            updateScore();
         }
     } else {
         playGameOverSound();
-        h2.innerHTML = `Game Over! Your score was <b>${level-1}</b> <br>Press any key to start`;
+        currentScore = 0;
+        document.getElementById('current-score').textContent = currentScore;
+        h2.innerHTML = `Game Over!<br>Press any key to start`;
         document.querySelector("body").style.backgroundColor = "red";
         setTimeout(function() {
-            document.querySelector("body").style.backgroundColor = "white";
+            document.querySelector("body").style.backgroundColor = "#f4f4f4";
         },200);
         reset();
     }
