@@ -48,7 +48,8 @@ function updateScore() {
 
 let h2 = document.querySelector("h2");
 
-document.addEventListener("keydown", function() {
+//Function for starting the game
+function startGame() {
     if(started == false) {
         backgroundMusic.play(); //Play background music    
         console.log("Game is started");
@@ -56,7 +57,14 @@ document.addEventListener("keydown", function() {
 
         levelUp();
     }
-});
+}
+
+// For starting game on desktop
+document.addEventListener('keydown', startGame);
+
+// For starting game on mobile
+let startBtn = document.querySelector('#start-btn');
+startBtn.addEventListener('click', startGame);
 
 function gameFlash(btn) {
     btn.classList.add("flash");
